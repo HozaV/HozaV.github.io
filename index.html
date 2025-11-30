@@ -1,0 +1,664 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Виртуальная выставка | Изобразительное искусство Магнитогорска</title>
+    <style>
+        :root {
+            --primary-color: #b71c1c; /* Красный индустриальный */
+            --secondary-color: #263238; /* Темный металл */
+            --text-color: #333;
+            --bg-light: #f5f5f5;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            background-color: var(--bg-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* СТИЛИ ДЛЯ КНОПКИ ГИМНА */
+        .anthem-btn {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-weight: 600;
+            border-radius: 4px;
+            transition: background-color 0.3s, transform 0.2s;
+            margin-right: auto; /* Отодвигает кнопку от навигации */
+        }
+        .anthem-btn:hover {
+            background-color: #d32f2f;
+            transform: scale(1.05);
+        }
+        /* КОНЕЦ СТИЛЕЙ ДЛЯ КНОПКИ ГИМНА */
+
+        /* Header */
+        header {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            box-sizing: border-box;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 1001;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            margin-left: 15px;
+            transition: 0.3s;
+            font-size: 0.95rem;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+        
+        /* Mobile Menu */
+        .menu-toggle { display: none; flex-direction: column; cursor: pointer; z-index: 1001; }
+        .menu-toggle span { height: 3px; width: 25px; background: var(--white); margin-bottom: 5px; border-radius: 2px; transition: all 0.3s ease-in-out; }
+        .nav-links { list-style: none; display: flex; margin: 0; padding: 0; }
+
+        /* General Section Styling */
+        section {
+            padding: 80px 10%;
+        }
+
+        h2 {
+            color: var(--secondary-color);
+            margin-bottom: 50px;
+            font-size: 2.2rem;
+            position: relative;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+            margin: 15px auto 0;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 15px 40px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background-color: #d32f2f;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(183, 28, 28, 0.4);
+        }
+
+        /* Hero Section */
+        .hero-video-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+        }
+
+        #background-video {
+            position: absolute; top: 50%; left: 50%;
+            min-width: 100%; min-height: 100%;
+            width: auto; height: auto;
+            z-index: -1;
+            transform: translate(-50%, -50%);
+        }
+
+        .video-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 0;
+        }
+
+        .hero-content { position: relative; z-index: 1; padding: 0 20px; }
+        .hero-content h1 { 
+            font-size: 3.8rem; 
+            margin-bottom: 20px; 
+            text-transform: uppercase; 
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.7); 
+            /* Снижение размера шрифта для длинного заголовка */
+            font-size: clamp(1.8rem, 4vw, 3.8rem);
+        }
+        .hero-content p { font-size: 1.4rem; max-width: 800px; margin-bottom: 40px; text-shadow: 1px 1px 5px rgba(0,0,0,0.7); }
+
+        /* Romazan Section */
+        .romazan-section { background-color: var(--white); padding-top: 100px; text-align: center; }
+        .romazan-content { display: flex; align-items: flex-start; gap: 40px; max-width: 1200px; margin: 0 auto; text-align: left; }
+        .romazan-video-wrapper { flex: 1; max-width: 50%; min-width: 300px; border-radius: 8px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+        .romazan-video-wrapper video { 
+            width: 100%; 
+            height: 350px; 
+            border: none;
+            /* Обеспечение покрытия для видео */
+            object-fit: cover; 
+            display: block;
+        }
+        .romazan-text { flex: 1; font-size: 1.1rem; padding-top: 20px; }
+        .romazan-text h3 { color: var(--primary-color); font-size: 2rem; margin-top: 0; }
+        
+        /* Video Gallery Section */
+        .video-gallery-section { padding-top: 80px; text-align: center; }
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1400px; margin: 0 auto; }
+        .video-item { background: var(--white); border-radius: 8px; box-shadow: 0 3px 10px rgba(0,0,0,0.1); overflow: hidden; transition: transform 0.2s; display: flex; flex-direction: column; }
+        .video-item video { 
+            width: 100%; 
+            height: 180px;
+            border: none;
+            /* Обеспечение покрытия для видео */
+            object-fit: cover;
+            display: block;
+        }
+        .video-title { padding: 15px 15px 5px; font-size: 1.05rem; color: var(--secondary-color); font-weight: 600; text-align: left; }
+        .video-description { padding: 0 15px 15px; font-size: 0.9rem; color: var(--primary-color); font-style: italic; text-align: left; }
+
+        /* Artists Section */
+        .artists-section { background-color: var(--bg-light); padding: 80px 10%; }
+        .artist-list { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .artist-card { background: var(--white); border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); padding: 20px; text-align: center; transition: transform 0.3s; }
+        .artist-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+        .artist-photo { width: 150px; height: 150px; border-radius: 50%; margin: 0 auto 15px; background-size: cover; background-position: center; border: 4px solid var(--primary-color); }
+        .artist-photo img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; }
+        .artist-card h4 { color: var(--secondary-color); margin: 0; font-size: 1.2rem; }
+        .artist-card p { color: #777; font-size: 0.95rem; margin-top: 5px; }
+        
+        /* Reviews Section Styles */
+        .reviews-section { background-color: var(--white); }
+        .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .review-card { background: var(--bg-light); padding: 30px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); transition: transform 0.3s; border-left: 5px solid var(--primary-color); text-align: left; }
+        .review-header { display: flex; align-items: center; margin-bottom: 20px; }
+        .avatar { width: 60px; height: 60px; border-radius: 50%; background-color: #eee; background-size: cover; background-position: center; margin-right: 15px; flex-shrink: 0; }
+        
+        /* АВАТАРЫ ОТЗЫВОВ */
+        .avatar-1 { background-image: url('img/Darya.jpg'); } 
+        .avatar-2 { background-image: url('img/Sofya.jpg'); } 
+        .avatar-3 { background-image: url('img/Evelina.jpg'); } 
+        .avatar-4 { background-image: url('img/Yuziya.jpg'); }
+        /* КОНЕЦ АВАТАРОВ ОТЗЫВОВ */
+
+        .review-text { font-style: italic; color: #555; font-size: 1rem; margin-bottom: 10px; }
+        .reviewer-info h4 { margin: 0; color: var(--secondary-color); font-size: 1.1rem; }
+        .reviewer-info span { font-size: 0.9rem; color: #888; }
+
+        /* Contact/CTA Section */
+        .contact-section { background: var(--secondary-color); color: var(--white); text-align: center; padding: 60px 20px; }
+        .contact-section h2 { color: var(--white); }
+        .contact-section h2::after { background-color: var(--white); }
+
+        /* Footer */
+        footer { background-color: #111; color: #888; text-align: center; padding: 30px; border-top: 3px solid var(--primary-color); margin-top: 0; }
+        
+        /* Mobile Responsive */
+        @media (max-width: 900px) {
+            .romazan-content { flex-direction: column; }
+            .romazan-video-wrapper { max-width: 100%; }
+        }
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Виртуальная выставка</div>
+        
+        <button id="play-anthem-btn" class="anthem-btn" aria-label="Проиграть Гимн Магнитогорска">
+            🎵 Включить Гимн
+        </button>
+        <audio id="anthem-audio" loop>
+            <source src="audio/Gimn_Magnitogorska.mp3" type="audio/mp3">
+            Ваш браузер не поддерживает аудио.
+        </audio>
+
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#hero-video-container">Главная</a></li>
+                <li><a href="#romazan-section">Ромазан И.Х.</a></li>
+                <li><a href="#video-gallery-section">Галерея</a></li>
+                <li><a href="#artists-section">Художники</a></li>
+                <li><a href="#reviews-section">Отзывы</a></li>
+                <li><a href="#contact-section">Контакты</a></li>
+            </ul>
+        </nav>
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <section id="hero-video-container" class="hero-video-container">
+        <video autoplay muted loop id="background-video">
+            <source src="video/мартеноский цех.MP4" type="video/mp4">
+            Ваш браузер не поддерживает видео HTML5.
+        </video>
+        <div class="video-overlay"></div>
+        <div class="hero-content">
+            <h1>Изобразительное исскуство Магнитогорска: от индустриального пейзажа до современных тенденций</h1>
+            <p>Погрузитесь в динамичную историю и современность индустриального гиганта через уникальные видеокадры.</p>
+            <a href="#romazan-section" class="btn">Начать просмотр</a>
+        </div>
+    </section>
+
+    <section id="romazan-section" class="romazan-section">
+        <h2>Иван Харитонович Ромазан</h2>
+        <div class="romazan-content">
+            <div class="romazan-video-wrapper">
+                <video controls preload="metadata">
+                    <source src="video/Рамазан.MP4" type="video/mp4">
+                    Ваш браузер не поддерживает видео HTML5.
+                </video>
+                <p style="text-align:center; font-style: italic; font-size: 0.9rem; padding: 10px 0; color: #777;">Рекомендуемая длина: 15 секунд. Видео со звуком.</p>
+            </div>
+            <div class="romazan-text">
+                <h3>Директор Магнитогорского металлургического комбината</h3>
+                <p>
+                    **Иван Харитонович Ромазан** - советский инженер-металлург, управленец, главный инженер Нижнетагильского металлургического комбината, главный инженер Магнитогорского металлургического комбината имени В. И. Ленина, директор Магнитогорского металлургического комбината. Герой Социалистического Труда.
+                </p>
+                <a href="#video-gallery-section" class="btn" style="padding: 10px 25px; margin-top: 20px; font-size: 1rem;">Перейти к галерее</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="video-gallery-section" class="video-gallery-section">
+        <h2>Галерея видеоарта (19 коротких сюжетов)</h2>
+        <div class="video-grid">
+            
+            <div class="video-item">
+                <video autoplay loop muted preload="metadata">
+                    <source src="video/Доменщики магнитки.MP4" type="video/mp4">
+                    Ваш браузер не поддерживает видео HTML5.
+                </video>
+                <div class="video-title">«Доменщики магнитки»</div>
+                <div class="video-description">Николай Петрович Рябов</div>
+            </div>
+            
+            <div class="video-item">
+                <video autoplay loop muted preload="metadata">
+                    <source src="video/Зоя Синицкая.MP4" type="video/mp4">
+                    Ваш браузер не поддерживает видео HTML5.
+                </video>
+                <div class="video-title">«Портрет Зои Синицкой»</div>
+                <div class="video-description">Николай Петрович Рябов</div>
+            </div>
+            
+            <div class="video-item">
+                <video autoplay loop muted preload="metadata">
+                    <source src="video/Люба Акатова.MP4" type="video/mp4">
+                    Ваш браузер не поддерживает видео HTML5.
+                </video>
+                <div class="video-title">«Портрет закройщицы Любы Акатовой»</div>
+                <div class="video-description">Николай Петрович Рябов</div>
+            </div>
+            
+            <div class="video-item">
+                <video autoplay loop muted preload="metadata">
+                    <source src="video/Жена с гитарой.MP4" type="video/mp4">
+                    Ваш браузер не поддерживает видео HTML5.
+                </video>
+                <div class="video-title">«Портрет жены с гитарой»</div>
+                <div class="video-description">Федор Георгиевич Разин</div>
+            </div>
+            
+            <div class="video-item">
+                <video autoplay loop muted preload="metadata">
+                    <source src="video/Горновой.MP4" type="video/mp4">
+                    Ваш браузер не поддерживает видео HTML5.
+                </video>
+                <div class="video-title">«Горновой»</div>
+                <div class="video-description">Федор Георгиевич Разин</div>
+            </div>
+            
+            <div class="video-item">
+                <video autoplay loop muted preload="metadata">
+                    <source src="video/осень в лесу.MP4" type="video/mp4">
+                    Ваш браузер не поддерживает видео HTML5.
+                </video>
+                <div class="video-title">«Осень в лесу»</div>
+                <div class="video-description">Федор Георгиевич Разин</div>
+            </div>
+            
+            <div class="video-item">
+                <video autoplay loop muted preload="metadata">
+                    <source src="video/сталь идет.MP4" type="video/mp4">
+                    Ваш браузер не поддерживает видео HTML5.
+                </video>
+                <div class="video-title">«Сталь идет»</div>
+                <div class="video-description">Федор Георгиевич Разин</div>
+            </div>
+            
+            <div class="video-item">
+                <video autoplay loop muted preload="metadata">
+                    <source src="video/Доменные печи.MP4" type="video/mp4">
+                    Ваш браузер не поддерживает видео HTML5.
+                </video>
+                <div class="video-title">«Доменные печи (Домны к вечеру)»</div>
+                <div class="video-description">Федор Георгиевич Разин</div>
+            </div>
+            
+            <div class="video-item">
+                <video autoplay loop muted preload="metadata">
+                    <source src="video/мартеноский цех.MP4" type="video/mp4">
+                    Ваш браузер не поддерживает видео HTML5.
+                </video>
+                <div class="video-title">«Мартеновский цех»</div>
+                <div class="video-description">Федор Георгиевич Разин</div>
+            </div>
+            
+            <div class="video-item">
+                <video autoplay loop muted preload="metadata">
+                    <source src="video/Филатов.MP4" type="video/mp4">
+                    Ваш браузер не поддерживает видео HTML5.
+                </video>
+                <div class="video-title">«Портрет горнового Филатова»</div>
+                <div class="video-description">Федор Георгиевич Разин</div>
+            </div>
+            
+            <div class="video-item">
+                <video autoplay loop muted preload="metadata">
+                    <source src="video/первые палатки.MP4" type="video/mp4">
+                    Ваш браузер не поддерживает видео HTML5.
+                </video>
+                <div class="video-title">«Первые палатки»</div>
+                <div class="video-description">Георгий Яковлевич Соловьев</div>
+            </div>
+            
+            <div class="video-item">
+                <video autoplay loop muted preload="metadata">
+                    <source src="video/строительствомагнитки.MP4" type="video/mp4">
+                    Ваш браузер не поддерживает видео HTML5.
+                </video>
+                <div class="video-title">«Строительство Магнитки»</div>
+                <div class="video-description">Георгий Яковлевич Соловьев</div>
+            </div>
+            
+            <div class="video-item">
+                <video autoplay loop muted preload="metadata">
+                    <source src="video/первостроители.MP4" type="video/mp4">
+                    Ваш браузер не поддерживает видео HTML5.
+                </video>
+                <div class="video-title">«Первостроители Магнитки»</div>
+                <div class="video-description">Ярослав Викторович Титов</div>
+            </div>
+            
+            <div class="video-item">
+                <video autoplay loop muted preload="metadata">
+                    <source src="video/ударник.MP4" type="video/mp4">
+                    Ваш браузер не поддерживает видео HTML5.
+                </video>
+                <div class="video-title">«Портреты ударников Магнитостроя»</div>
+                <div class="video-description">Николай Алексеевич Ситников</div>
+            </div>
+            
+            <div class="video-item">
+                <video autoplay loop muted preload="metadata">
+                    <source src="video/У металлургов урала.MP4" type="video/mp4">
+                    Ваш браузер не поддерживает видео HTML5.
+                </video>
+                <div class="video-title">«У металлургов Урала»</div>
+                <div class="video-description">Валерий Иосифович Сичков</div>
+            </div>
+            
+            <div class="video-item">
+                <video autoplay loop muted preload="metadata">
+                    <source src="video/коксохим.MP4" type="video/mp4">
+                    Ваш браузер не поддерживает видео HTML5.
+                </video>
+                <div class="video-title">«Коксохим»</div>
+                <div class="video-description">Борисенко Эдуард Павлович</div>
+            </div>
+            
+            <div class="video-item">
+                <video autoplay loop muted preload="metadata">
+                    <source src="video/Индустриальный пейзаж.MP4" type="video/mp4">
+                    Ваш браузер не поддерживает видео HTML5.
+                </video>
+                <div class="video-title">«Индустриальный пейзаж»</div>
+                <div class="video-description">Игорь Станиславович Фоменко</div>
+            </div>
+            
+            <div class="video-item">
+                <video autoplay loop muted preload="metadata">
+                    <source src="video/Жажда.MP4" type="video/mp4">
+                    Ваш браузер не поддерживает видео HTML5.
+                </video>
+                <div class="video-title">«Жажда»</div>
+                <div class="video-description">Константин Мефодьевич Максимов</div>
+            </div>
+
+            <div class="video-item">
+                <video autoplay loop muted preload="metadata">
+                    <source src="video/Доменщики магнитки.MP4" type="video/mp4">
+                    Ваш браузер не поддерживает видео HTML5.
+                </video>
+                <div class="video-title">«Магнитка. История подвига»</div>
+                <div class="video-description">Тематическая хроника</div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="artists-section" class="artists-section">
+        <h2>Художники видеоарта</h2>
+        <ul class="artist-list">
+            <li class="artist-card">
+                <div class="artist-photo">
+                    <img src="img/Titov.jpg" alt="Фотография Ярослава Викторовича Титова">
+                </div>
+                <h4>Ярослав Викторович Титов</h4>
+                <p>Представлен работой «Первостроители Магнитки».</p>
+            </li>
+            
+            <li class="artist-card">
+                <div class="artist-photo">
+                    <img src="img/Petrov.jpg" alt="Фотография Сергея Петрова Алексеевича">
+                </div>
+                <h4>Сергей Петров Алексеевич</h4>
+                <p>Внес вклад в развитие индустриальной темы.</p>
+            </li>
+            
+            <li class="artist-card">
+                <div class="artist-photo">
+                    <img src="img/Соловьев.jpg" alt="Фотография Георгия Яковлевича Соловьева">
+                </div>
+                <h4>Георгий Яковлевич Соловьев</h4>
+                <p>Работы: «Первые палатки», «Строительство Магнитки».</p>
+            </li>
+            
+            <li class="artist-card">
+                <div class="artist-photo">
+                    <img src="img/Ryabov.jpg" alt="Фотография Николая Петровича Рябова">
+                </div>
+                <h4>Николай Петрович Рябов</h4>
+                <p>Работы: «Доменщики магнитки», «Портрет Зои Синицкой» и другие.</p>
+            </li>
+            
+            <li class="artist-card">
+                <div class="artist-photo">
+                    <img src="img/Ryazin.jpg" alt="Фотография Федора Георгиевича Разина">
+                </div>
+                <h4>Федор Георгиевич Разин</h4>
+                <p>Автор множества индустриальных и лирических сюжетов.</p>
+            </li>
+            
+        </ul>
+    </section>
+
+    <section id="reviews-section" class="reviews-section">
+        <h2>Отзывы посетителей</h2>
+        <div class="reviews-grid">
+            
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="avatar avatar-1"></div>
+                    <div class="reviewer-info">
+                        <h4>Матвеева Дарья</h4>
+                        <span>Интересующийся историей</span>
+                    </div>
+                </div>
+                <div class="review-text">
+                    "Выставка интересная, особенно впечатлили интерактивные элементы и возможность узнать больше о истории города."
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="avatar avatar-2"></div>
+                    <div class="reviewer-info">
+                        <h4>Кожина Софья</h4>
+                        <span>Школьник</span>
+                    </div>
+                </div>
+                <div class="review-text">
+                    "Я была поражена количеством информации и качеством представленных материалов. Очень познавательно!"
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="avatar avatar-3"></div>
+                    <div class="reviewer-info">
+                        <h4>Янзакова Эвелина</h4>
+                        <span>Школьник</span>
+                    </div>
+                </div>
+                <div class="review-text">
+                    "Выставку легко было смотреть онлайн, и я смогла узнать много нового о трудовом вкладе людей в историю города. Спасибо!"
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="avatar avatar-4"></div>
+                    <div class="reviewer-info">
+                        <h4>Давлетшина Юзиля</h4>
+                        <span>Школьник</span>
+                    </div>
+                </div>
+                <div class="review-text">
+                    "Очень впечатляющая выставка! Особенно понравились фотографии и документы. Рекомендую всем!"
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="contact-section" class="contact-section">
+        <h2>Оставьте свой отзыв или задайте вопрос</h2>
+        <p>Мы ценим ваше мнение и всегда открыты к диалогу.</p>
+        <br>
+        <button class="btn" style="background-color: white; color: var(--primary-color);" onclick="alert('Форма для обратной связи временно недоступна. Спасибо за интерес!')">Связаться с нами</button>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Виртуальная выставка. Изобразительное искусство Магнитогорска. Все права защищены.</p>
+        <p style="font-size: 0.8rem; margin-top: 10px; color: #555;">Создано для демонстрационных целей.</p>
+    </footer>
+
+    <script>
+        // ЛОГИКА ДЛЯ ГИМНА
+        const anthemAudio = document.getElementById('anthem-audio');
+        const playAnthemBtn = document.getElementById('play-anthem-btn');
+        let isPlaying = false;
+
+        playAnthemBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                anthemAudio.pause();
+                playAnthemBtn.innerHTML = '🎵 Включить Гимн';
+            } else {
+                // Пытаемся проиграть, обрабатываем ошибки автовоспроизведения
+                anthemAudio.play().catch(e => {
+                    alert('Для начала проигрывания гимна требуется ваше взаимодействие с сайтом. Пожалуйста, попробуйте еще раз.');
+                    console.error("Autoplay failed:", e);
+                });
+                playAnthemBtn.innerHTML = '⏸️ Выключить Гимн';
+            }
+            isPlaying = !isPlaying;
+        });
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                // Close mobile menu on click
+                const navLinks = document.querySelector('.nav-links');
+                const menuToggle = document.querySelector('.menu-toggle');
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    menuToggle.classList.remove('active');
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        });
+
+        // Autoplay video workaround for background video
+        document.addEventListener('DOMContentLoaded', () => {
+            const video = document.getElementById('background-video');
+            if (video) {
+                video.play().catch(error => {
+                    console.log("Autoplay prevented. Muting video and trying again:", error);
+                    video.muted = true;
+                    video.play().catch(e => console.error("Still couldn't autoplay video:", e));
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
