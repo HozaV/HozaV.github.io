@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -248,7 +248,7 @@
         <div class="logo">Виртуальная выставка</div>
         
         <button id="play-anthem-btn" class="anthem-btn" aria-label="Проиграть Гимн Магнитогорска">
-            🎵 Включить Гимн
+            Гимн Магнитогорска
         </button>
         <audio id="anthem-audio" loop>
             <source src="audio/Gimn_Magnitogorska.mp3" type="audio/mp3">
@@ -609,14 +609,16 @@
         playAnthemBtn.addEventListener('click', () => {
             if (isPlaying) {
                 anthemAudio.pause();
-                playAnthemBtn.innerHTML = '🎵 Включить Гимн';
+                // ИЗМЕНЕНИЕ: Текст кнопки при паузе
+                playAnthemBtn.innerHTML = 'Гимн Магнитогорска';
             } else {
                 // Пытаемся проиграть, обрабатываем ошибки автовоспроизведения
                 anthemAudio.play().catch(e => {
                     alert('Для начала проигрывания гимна требуется ваше взаимодействие с сайтом. Пожалуйста, попробуйте еще раз.');
                     console.error("Autoplay failed:", e);
                 });
-                playAnthemBtn.innerHTML = '⏸️ Выключить Гимн';
+                // ИЗМЕНЕНИЕ: Текст кнопки при проигрывании
+                playAnthemBtn.innerHTML = '⏸️ Пауза Гимна';
             }
             isPlaying = !isPlaying;
         });
