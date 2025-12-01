@@ -228,6 +228,15 @@
         .contact-section { background: var(--secondary-color); color: var(--white); text-align: center; padding: 60px 20px; }
         .contact-section h2 { color: var(--white); }
         .contact-section h2::after { background-color: var(--white); }
+        
+        /* Стиль для кнопки-ссылки */
+        .contact-link {
+            background-color: var(--white) !important;
+            color: var(--primary-color) !important;
+        }
+        .contact-link:hover {
+            background-color: #eee !important;
+        }
 
         /* Footer */
         footer { background-color: #111; color: #888; text-align: center; padding: 30px; border-top: 3px solid var(--primary-color); margin-top: 0; }
@@ -594,7 +603,14 @@
         <h2>Оставьте свой отзыв или задайте вопрос</h2>
         <p>Мы ценим ваше мнение и всегда открыты к диалогу.</p>
         <br>
-        <button class="btn" style="background-color: white; color: var(--primary-color);" onclick="alert('Форма для обратной связи временно недоступна. Спасибо за интерес!')">Связаться с нами</button>
+        <a 
+            href="https://t.me/HozaV" 
+            target="_blank" 
+            class="btn contact-link" 
+            style="background-color: white; color: var(--primary-color);"
+        >
+            Связаться с нами
+        </a>
     </section>
 
     <footer>
@@ -679,7 +695,6 @@
 
 </body>
 </html>
-
 
 
 
