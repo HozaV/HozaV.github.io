@@ -22,6 +22,45 @@
             line-height: 1.6;
             overflow-x: hidden;
         }
+        
+        /* ------------------------------------------------ */
+        /* НОВЫЕ СТИЛИ ДЛЯ ИНТРО-ВИДЕО */
+        /* ------------------------------------------------ */
+        #intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--secondary-color); /* Темный фон для контраста */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999; /* Выше всего остального */
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+        }
+        
+        #intro-video {
+            /* ИЗМЕНЕНО: Увеличение максимального размера до 800x800 */
+            max-width: 800px;
+            max-height: 800px;
+            width: 90vw; /* Адаптивность для мобильных */
+            height: auto;
+            border: 5px solid var(--primary-color);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+        }
+
+        .hidden {
+            opacity: 0 !important;
+            visibility: hidden !important;
+        }
+        /* ------------------------------------------------ */
+        /* КОНЕЦ НОВЫХ СТИЛЕЙ */
+        /* ------------------------------------------------ */
+
 
         /* СТИЛИ ДЛЯ КНОПКИ ГИМНА */
         .anthem-btn {
@@ -33,13 +72,12 @@
             font-weight: 600;
             border-radius: 4px;
             transition: background-color 0.3s, transform 0.2s;
-            margin-right: auto; /* Отодвигает кнопку от навигации */
+            margin-right: auto; 
         }
         .anthem-btn:hover {
             background-color: #d32f2f;
             transform: scale(1.05);
         }
-        /* КОНЕЦ СТИЛЕЙ ДЛЯ КНОПКИ ГИМНА */
 
         /* Header */
         header {
@@ -118,7 +156,7 @@
             transition: all 0.3s ease;
             font-weight: 600;
             display: inline-block;
-            margin: 5px; /* Для разделения двух кнопок */
+            margin: 5px; 
         }
 
         .btn:hover {
@@ -158,7 +196,6 @@
             position: relative; 
             z-index: 1; 
             padding: 0 20px; 
-            /* Добавлено для лучшего выравнивания текста */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -180,12 +217,11 @@
             text-shadow: 1px 1px 5px rgba(0,0,0,0.7); 
         }
         
-        /* Блок для кнопок */
         .hero-actions {
             margin-top: 20px;
         }
-
-        /* Romazan Section */
+        
+        /* Romazan Section (и остальной CSS пропущен для краткости, он остается без изменений) */
         .romazan-section { background-color: var(--white); padding-top: 100px; text-align: center; }
         .romazan-content { display: flex; align-items: flex-start; gap: 40px; max-width: 1200px; margin: 0 auto; text-align: left; }
         .romazan-video-wrapper { flex: 1; max-width: 50%; min-width: 300px; border-radius: 8px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
@@ -193,14 +229,12 @@
             width: 100%; 
             height: 350px; 
             border: none;
-            /* Обеспечение покрытия для видео */
             object-fit: cover; 
             display: block;
         }
         .romazan-text { flex: 1; font-size: 1.1rem; padding-top: 20px; }
         .romazan-text h3 { color: var(--primary-color); font-size: 2rem; margin-top: 0; }
         
-        /* Video Gallery Section */
         .video-gallery-section { padding-top: 80px; text-align: center; }
         .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1400px; margin: 0 auto; }
         .video-item { background: var(--white); border-radius: 8px; box-shadow: 0 3px 10px rgba(0,0,0,0.1); overflow: hidden; transition: transform 0.2s; display: flex; flex-direction: column; }
@@ -208,16 +242,13 @@
             width: 100%; 
             height: 180px;
             border: none;
-            /* Обеспечение покрытия для видео */
             object-fit: cover;
             display: block;
-            /* Указатель для кликабельности */
             cursor: pointer; 
         }
         .video-title { padding: 15px 15px 5px; font-size: 1.05rem; color: var(--secondary-color); font-weight: 600; text-align: left; }
         .video-description { padding: 0 15px 15px; font-size: 0.9rem; color: var(--primary-color); font-style: italic; text-align: left; }
 
-        /* Artists Section */
         .artists-section { background-color: var(--bg-light); padding: 80px 10%; }
         .artist-list { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
         .artist-card { background: var(--white); border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); padding: 20px; text-align: center; transition: transform 0.3s; }
@@ -227,30 +258,25 @@
         .artist-card h4 { color: var(--secondary-color); margin: 0; font-size: 1.2rem; }
         .artist-card p { color: #777; font-size: 0.95rem; margin-top: 5px; }
         
-        /* Reviews Section Styles */
         .reviews-section { background-color: var(--white); }
         .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
         .review-card { background: var(--bg-light); padding: 30px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); transition: transform 0.3s; border-left: 5px solid var(--primary-color); text-align: left; }
         .review-header { display: flex; align-items: center; margin-bottom: 20px; }
         .avatar { width: 60px; height: 60px; border-radius: 50%; background-color: #eee; background-size: cover; background-position: center; margin-right: 15px; flex-shrink: 0; }
         
-        /* АВАТАРЫ ОТЗЫВОВ */
         .avatar-1 { background-image: url('img/Darya.jpg'); } 
         .avatar-2 { background-image: url('img/Sofya.jpg'); } 
         .avatar-3 { background-image: url('img/Evelina.jpg'); } 
         .avatar-4 { background-image: url('img/Yuziya.jpg'); }
-        /* КОНЕЦ АВАТАРОВ ОТЗЫВОВ */
 
         .review-text { font-style: italic; color: #555; font-size: 1rem; margin-bottom: 10px; }
         .reviewer-info h4 { margin: 0; color: var(--secondary-color); font-size: 1.1rem; }
         .reviewer-info span { font-size: 0.9rem; color: #888; }
 
-        /* Contact/CTA Section */
         .contact-section { background: var(--secondary-color); color: var(--white); text-align: center; padding: 60px 20px; }
         .contact-section h2 { color: var(--white); }
         .contact-section h2::after { background-color: var(--white); }
         
-        /* Стиль для кнопки-ссылки */
         .contact-link {
             background-color: var(--white) !important;
             color: var(--primary-color) !important;
@@ -266,12 +292,17 @@
         @media (max-width: 900px) {
             .romazan-content { flex-direction: column; }
             .romazan-video-wrapper { max-width: 100%; }
+            
+            /* На мобильных ограничиваем интро-видео, чтобы оно не занимало весь экран (80% ширины) */
+            #intro-video {
+                max-width: 80%;
+                max-height: 80vh;
+            }
         }
         @media (max-width: 768px) {
             .hero-content h1 {
                 font-size: 2.2rem;
             }
-            /* Кнопки на мобильном в колонку */
             .hero-actions {
                 display: flex;
                 flex-direction: column;
@@ -281,6 +312,19 @@
     </style>
 </head>
 <body>
+
+    <div id="intro-overlay">
+        <video 
+            id="intro-video" 
+            autoplay 
+            muted 
+            playsinline 
+            preload="auto"
+        >
+            <source src="video/Магнитогорск.mp4" type="video/mp4">
+            Ваш браузер не поддерживает видео HTML5.
+        </video>
+    </div>
 
     <header>
         <div class="logo">Виртуальная выставка</div>
@@ -343,7 +387,7 @@
             <div class="romazan-text">
                 <h3>Директор Магнитогорского металлургического комбината</h3>
                 <p>
-                    Иван Харитонович Ромазан - советский инженер-металлург, управленец, главный инженер Нижнетагильского металлургического комбината, главный инженер Магнитогорского металлургического комбината имени В. И. Ленина, директор Магнитогорского металлургического комбината. Герой Социалистического Труда.
+                    **Иван Харитонович Ромазан** - советский инженер-металлург, управленец, главный инженер Нижнетагильского металлургического комбината, главный инженер Магнитогорского металлургического комбината имени В. И. Ленина, директор Магнитогорского металлургического комбината. Герой Социалистического Труда.
                 </p>
                 <a href="#video-gallery-section" class="btn" style="padding: 10px 25px; margin-top: 20px; font-size: 1rem;">Перейти к галерее</a>
             </div>
@@ -384,7 +428,7 @@
             <div class="video-item">
                 <video autoplay loop muted preload="metadata" controls onclick="toggleFullscreen(this)">
                     <source src="video/Жена с гитарой.MP4" type="video/mp4">
-                    Ваш браузер не поддерживает видео HTML5.
+                     Ваше видео не поддерживается.
                 </video>
                 <div class="video-title">«Портрет жены с гитарой»</div>
                 <div class="video-description">Федор Георгиевич Разин</div>
@@ -543,7 +587,7 @@
                 <div class="artist-photo">
                     <img src="img/Petrov.jpg" alt="Фотография Сергея Петрова Алексеевича">
                 </div>
-                <h4>Сергей Алексеевич Петров</h4>
+                <h4>Сергей Петров Алексеевич</h4>
                 <p>Внес вклад в развитие индустриальной темы.</p>
             </li>
             
@@ -653,75 +697,103 @@
     </footer>
 
     <script>
-        // Функция для переключения видео в полноэкранный режим
-        function toggleFullscreen(videoElement) {
-            // Если видео уже проигрывается, не вызываем Fullscreen, чтобы не прерывать просмотр.
-            // Примечание: браузеры могут блокировать Fullscreen, если он не вызван прямым действием пользователя (кликом).
-            if (videoElement.requestFullscreen) {
-                videoElement.requestFullscreen();
-            } else if (videoElement.mozRequestFullScreen) { /* Firefox */
-                videoElement.mozRequestFullScreen();
-            } else if (videoElement.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-                videoElement.webkitRequestFullscreen();
-            } else if (videoElement.msRequestFullscreen) { /* IE/Edge */
-                videoElement.msRequestFullscreen();
+        // Функция для скрытия интро-видео
+        function hideIntro() {
+            const introOverlay = document.getElementById('intro-overlay');
+            if (introOverlay) {
+                introOverlay.classList.add('hidden');
+                // Также можно остановить видео, чтобы сэкономить ресурсы (хотя оно само остановится)
+                const introVideo = document.getElementById('intro-video');
+                if (introVideo) {
+                    introVideo.pause();
+                }
             }
         }
-        
-        // ЛОГИКА ДЛЯ ГИМНА
-        const anthemAudio = document.getElementById('anthem-audio');
-        const playAnthemBtn = document.getElementById('play-anthem-btn');
-        let isPlaying = false;
 
-        playAnthemBtn.addEventListener('click', () => {
-            if (isPlaying) {
-                anthemAudio.pause();
-                playAnthemBtn.innerHTML = 'Гимн Магнитогорска';
-            } else {
-                // Пытаемся проиграть, обрабатываем ошибки автовоспроизведения
-                anthemAudio.play().catch(e => {
-                    alert('Для начала проигрывания гимна требуется ваше взаимодействие с сайтом. Пожалуйста, попробуйте еще раз.');
-                    console.error("Autoplay failed:", e);
-                });
-                playAnthemBtn.innerHTML = '⏸️ Пауза Гимна';
-            }
-            isPlaying = !isPlaying;
-        });
-
-        // Smooth scrolling for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-                // Close mobile menu on click
-                const navLinks = document.querySelector('.nav-links');
-                const menuToggle = document.querySelector('.menu-toggle');
-                if (navLinks.classList.contains('active')) {
-                    navLinks.classList.remove('active');
-                    menuToggle.classList.remove('active');
-                }
-            });
-        });
-
-        // Mobile menu toggle
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
-
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            menuToggle.classList.toggle('active');
-        });
-
-        // Autoplay video workaround for background video
         document.addEventListener('DOMContentLoaded', () => {
-            const video = document.getElementById('background-video');
-            if (video) {
-                video.play().catch(error => {
-                    console.log("Autoplay prevented. Muting video and trying again:", error);
-                    video.muted = true;
-                    video.play().catch(e => console.error("Still couldn't autoplay video:", e));
+            const introVideo = document.getElementById('intro-video');
+            
+            if (introVideo) {
+                // 1. Попытка проиграть видео
+                introVideo.play().catch(error => {
+                    console.error("Autoplay of intro video prevented:", error);
+                    // Если автоплей не сработал, скрываем сразу, чтобы не блокировать контент.
+                    setTimeout(hideIntro, 500); // Небольшая задержка, чтобы пользователь успел увидеть страницу
+                });
+                
+                // 2. Скрываем интро, когда видео закончится (если оно проигралось)
+                introVideo.onended = hideIntro;
+                
+                // 3. Гарантированно скрываем интро через 5 секунд (на случай, если видео длиннее или не сработает onended)
+                setTimeout(hideIntro, 5000); // 5000 миллисекунд = 5 секунд
+            }
+
+            // --- Существующая логика ---
+
+            // Функция для переключения видео в полноэкранный режим
+            function toggleFullscreen(videoElement) {
+                if (videoElement.requestFullscreen) {
+                    videoElement.requestFullscreen();
+                } else if (videoElement.mozRequestFullScreen) { 
+                    videoElement.mozRequestFullScreen();
+                } else if (videoElement.webkitRequestFullscreen) { 
+                    videoElement.webkitRequestFullscreen();
+                } else if (videoElement.msRequestFullscreen) { 
+                    videoElement.msRequestFullscreen();
+                }
+            }
+            
+            // ЛОГИКА ДЛЯ ГИМНА
+            const anthemAudio = document.getElementById('anthem-audio');
+            const playAnthemBtn = document.getElementById('play-anthem-btn');
+            let isPlaying = false;
+
+            playAnthemBtn.addEventListener('click', () => {
+                if (isPlaying) {
+                    anthemAudio.pause();
+                    playAnthemBtn.innerHTML = 'Гимн Магнитогорска';
+                } else {
+                    anthemAudio.play().catch(e => {
+                        alert('Для начала проигрывания гимна требуется ваше взаимодействие с сайтом. Пожалуйста, попробуйте еще раз.');
+                        console.error("Autoplay failed:", e);
+                    });
+                    playAnthemBtn.innerHTML = '⏸️ Пауза Гимна';
+                }
+                isPlaying = !isPlaying;
+            });
+
+            // Smooth scrolling for navigation
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    const navLinks = document.querySelector('.nav-links');
+                    const menuToggle = document.querySelector('.menu-toggle');
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        menuToggle.classList.remove('active');
+                    }
+                });
+            });
+
+            // Mobile menu toggle
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                menuToggle.classList.toggle('active');
+            });
+
+            // Autoplay video workaround for background video
+            const backgroundVideo = document.getElementById('background-video');
+            if (backgroundVideo) {
+                backgroundVideo.play().catch(error => {
+                    console.log("Autoplay prevented. Muting background video and trying again:", error);
+                    backgroundVideo.muted = true;
+                    backgroundVideo.play().catch(e => console.error("Still couldn't autoplay background video:", e));
                 });
             }
         });
@@ -729,6 +801,3 @@
 
 </body>
 </html>
-
-
-
